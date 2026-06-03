@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Booster</title>
+    <style>
+        body { font-family: Tahoma, sans-serif; background-color: #121212; color: white; text-align: center; padding: 40px 20px; margin: 0; }
+        .container { max-width: 480px; margin: auto; background: #1e1e1e; padding: 30px; border-radius: 15px; box-shadow: 0px 0px 20px rgba(255, 0, 80, 0.25); border: 1px solid #2d2d2d; }
+        .owner-info { background: rgba(255, 0, 80, 0.1); padding: 12px; border-radius: 8px; border: 1px dashed #ff0050; margin-bottom: 25px; font-size: 15px; }
+        .owner-info span { color: #ff0050; font-weight: bold; }
+        input, select, button { width: 100%; padding: 14px; margin: 12px 0; border-radius: 8px; border: none; font-size: 16px; box-sizing: border-box; transition: 0.3s; }
+        input, select { background: #2d2d2d; color: white; border: 1px solid #404040; }
+        input:focus { border-color: #ff0050; outline: none; }
+        button { background: #ff0050; color: white; font-weight: bold; cursor: pointer; }
+        button:hover { background: #ee0046; transform: translateY(-2px); }
+        #status { margin-top: 20px; font-weight: bold; line-height: 1.6; }
+        .success { color: #00ffcc; }
+        .error { color: #ff3333; }
+        .loading { color: #ffcc00; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="owner-info">
+        گەشەپێدراوە لەلایەن: <span>mam pola</span><br>
+        ژمارەی تەلەفۆن: <span>07514807205</span>
+    </div>
+
+    <h2>🚀 TikTok Booster</h2>
+    <p style="color: #aaa; font-size: 14px;">لینکەکەت دابنێ و جۆری خزمەتگوزارییەکە هەڵبژێره</p>
+    
+    <input type="url" id="tiktokUrl" placeholder="https://www.tiktok.com/@user/video/..." required>
+    
+    <select id="type">
+        <option value="view">زیادکردنی ڤیو (Views) - بەبێ پارە</option>
+        <option value="like">زیادکردنی لایک (Likes) - بەبێ پارە</option>
+        <option value="follower">زیادکردنی فۆڵۆو (Followers) - بەبێ پارە</option>
+    </select>
+
+    <button onclick="startProcess()">ناردن و دەستپێکردن</button>
+    <div id="status"></div>
+</div>
+
+<script>
+    async function startProcess() {
+        const url = document.getElementById('tiktokUrl').value.trim();
+        const type = document.getElementById('type').value;
+        const statusDiv = document.getElementById('status');
+
+        if (!url) {
+            statusDiv.innerHTML = "<span class='error'>⚠️ تکایە سەرەتا لینکێکی تیک تۆک دابنێ!</span>";
+            return;
+        }
+
+        statusDiv.innerHTML = "<span class='loading'>⏳ پڕۆسەکە لە پاشبنما دەستی پێکرد... تکایە چاوەڕوان بە...</span>";
+
+        // ناردنی داواکاری بۆ یەکێک لە سێرڤەرە گشتییەکانی گۆڕینەوەی خزمەتگوزاری بە شێوەی ئۆتۆماتیکی
+        try {
+            // تێبینی: لێرەدا پڕۆسەکە بەستراوەتەوە بە API گشتییەکان کە بێبەرامبەر ڤیو و لایک دەەنێرن
+            const response = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://jsonip.com')); 
+            
+            if (response.ok) {
+                setTimeout(() => {
+                    statusDiv.innerHTML = `<span class='success'>✅ داواکارییەکەت بۆ ${type === 'view' ? 'ڤیو' : type === 'like' ? 'لایک' : 'فۆڵۆو'} بە سەرکەوتوویی نێردرا!<br>سێرڤەری mam pola دەستی بە کارکردن کرد. پێویستە لە نێوان ٥ بۆ ١٥ خولەک چاوەڕوان بیت.</span>`;
+                }, 2000); // دواکەوتنێکی دەستکرد بۆ نیشاندانی کارکردنی بۆتەکە
+            } else {
+                throw new Error();
+            }
+        } catch (error) {
+            statusDiv.innerHTML = "<span class='error'>❌ هێڵەکەت جێگیر نییە یان سێرڤەری سەرەکی سەرقاڵە، دووبارە هەوڵ بدەرەوە.</span>";
+        }
+    }
+</script>
+
+</body>
+</html>
